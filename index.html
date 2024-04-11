@@ -25,7 +25,21 @@
 
   <div class="sidebar">
     <img src="logo.png" alt="Logo" class="logo" />
-    <button class="deleteAll__btn"> Delete All Workouts </button>
+    <div class="delete-sort__container">
+      <div class="sorting__container">
+        <h3 class="sort__title">
+          Sort by:
+        </h3>
+        <select class="sort__workouts--selector">
+          <option value="select">Select an option</option>
+          <option value="distance-high-to-low">⬆️🏃🏼‍♂️</option>
+          <option value="distance-low-to-high">⬇️🏃🏼‍♂️</option>
+          <option value="duration-high-to-low">⬆️⏱️</option>
+          <option value="duration-low-to-high">⬇️⏱️</option>
+        </select>
+      </div>
+      <button class="deleteAll__btn"> Delete All Workouts </button>
+    </div>
 
     <ul class="workouts">
       <form class="form__edit hidden">
