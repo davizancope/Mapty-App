@@ -166,6 +166,31 @@ a:visited {
   transition: 0.6s;
 }
 
+.delete-sort__container {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.sort__title {
+  padding: 5px;
+  font-size: 1.5rem;
+  color: var(--color-brand--1)
+}
+
+.sorting__container {
+  display: inline-flex;
+  margin-bottom: 15px;
+}
+
+.sort__workouts--selector {
+  padding: 5px;
+  background-color: transparent;
+  border: 2px var(--color-dark--2) solid;
+  border-radius: 10px;
+  color: var(--color-light--3);
+  text-align: center;
+}
+
 .deleteAll__btn {
   padding: 6px;
   margin-bottom: 15px;
