@@ -18,6 +18,8 @@ const modalWindow = document.querySelector('.modal__window');
 const cancelDeletion = document.querySelector('.modal__button--no');
 const confirmDeletion = document.querySelector('.modal__button--yes');
 const overlay = document.querySelector('.overlay');
+const sortingContainer = document.querySelector('.sort__container');
+const sortingSelector = document.querySelector('.sort__workouts--selector');
 
 class Workout {
     date = new Date();
@@ -99,6 +101,7 @@ class App {
         deleteAllBtn.addEventListener('click', this._deleteAllWorkouts.bind(this));
         confirmDeletion.addEventListener('click', this._confirmWorkoutsDeletion.bind(this));
         cancelDeletion.addEventListener('click', this._cancelWorkoutsDeletion.bind(this));
+        sortingSelector.addEventListener('change', this._applyFilter.bind(this));
     }
 
     _getPosition() {
@@ -136,6 +139,7 @@ class App {
 
         this.#mapEvent = mapE;
         form.classList.remove('hidden');
+        sortingSelector.value = 'select';
         inputDistance.focus();
     }
 
@@ -520,6 +524,36 @@ class App {
 
     _cancelWorkoutsDeletion() {
         this._closeConfirmationModal();
+    }
+
+    _filter(sortingRule) {
+
+        document.querySelectorAll(".workout").forEach(el => el.remove());
+
+        switch (sortingRule) {
+            case 'distance-high-to-low':
+                this.#workouts.sort((a, b) => a.distance - b.distance);
+                break;
+            case 'distance-low-to-high':
+                this.#workouts.sort((a, b) => b.distance - a.distance);
+                break;
+            case 'duration-high-to-low':
+                this.#workouts.sort((a, b) => a.duration - b.duration);
+                break;
+            case 'duration-low-to-high':
+                this.#workouts.sort((a, b) => b.duration - a.duration);
+                break;
+        }
+
+        this.#workouts.forEach(workout => {
+            this._renderWorkout(workout);
+        });
+    }
+
+    _applyFilter() {
+        const sortingInputValue = sortingSelector.value;
+
+        this._filter(sortingInputValue);
     }
 
     reset() {
