@@ -22,8 +22,10 @@
 </head>
 
 <body>
+
   <div class="sidebar">
     <img src="logo.png" alt="Logo" class="logo" />
+    <button class="deleteAll__btn"> Delete All Workouts </button>
 
     <ul class="workouts">
       <form class="form__edit hidden">
@@ -139,6 +141,15 @@
   </div>
 
   <div id="map"></div>
+
+  <div class="modal__window hidden">
+    <h1 class="modal__title"> Are you sure you want to delete all the workouts? </h1>
+    <div class="confirmation__buttons">
+      <button class="modal__button--no"> No </button>
+      <button class="modal__button--yes"> Yes </button>
+    </div>
+  </div>
+  <div class="overlay hidden"></div>
 </body>
 
 </html>

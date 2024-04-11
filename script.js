@@ -13,6 +13,11 @@ const inputDistanceEdit = document.querySelector('.form__input--distance--edit')
 const inputDurationEdit = document.querySelector('.form__input--duration--edit');
 const inputCadenceEdit = document.querySelector('.form__input--cadence--edit');
 const inputElevationEdit = document.querySelector('.form__input--elevation--edit');
+const deleteAllBtn = document.querySelector('.deleteAll__btn');
+const modalWindow = document.querySelector('.modal__window');
+const cancelDeletion = document.querySelector('.modal__button--no');
+const confirmDeletion = document.querySelector('.modal__button--yes');
+const overlay = document.querySelector('.overlay');
 
 class Workout {
     date = new Date();
@@ -91,6 +96,9 @@ class App {
         containerWorkouts.addEventListener('click', this._editWorkout.bind(this));
         containerWorkouts.addEventListener('click', this._deleteWorkout.bind(this));
         formEdit.addEventListener('submit', this._submitEdittedWorkout.bind(this));
+        deleteAllBtn.addEventListener('click', this._deleteAllWorkouts.bind(this));
+        confirmDeletion.addEventListener('click', this._confirmWorkoutsDeletion.bind(this));
+        cancelDeletion.addEventListener('click', this._cancelWorkoutsDeletion.bind(this));
     }
 
     _getPosition() {
@@ -269,6 +277,18 @@ class App {
         if (workoutToDelete) {
             workoutToDelete.remove();
         }
+    }
+
+    _removeAllWorkoutsAndMarkers() {
+        // Remove all workouts
+        document.querySelectorAll('.workout').forEach(workout => workout.remove());
+
+        // Remove all markers
+        this.#workoutMarkers.forEach(marker => this.#map.removeLayer(marker));
+
+        this.#workoutMarkers.splice(0);
+
+        this.reset();
     }
 
     _renderWorkout(workout) {
@@ -472,6 +492,34 @@ class App {
         // Remove workout from the workouts array and sets the local storage again
         this.#workouts.splice(index, 1);
         this._setLocalStorage();
+    }
+
+    _openConfirmationModal() {
+        modalWindow.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+    }
+
+    _closeConfirmationModal() {
+        modalWindow.classList.add('hidden');
+        overlay.classList.add('hidden');
+    }
+
+    _deleteAllWorkouts(event) {
+        console.log('Entrou!');
+        const deleteAllBtn = event.target.closest('.deleteAll__btn');
+
+        this._openConfirmationModal();
+    }
+
+    _confirmWorkoutsDeletion(event) {
+        this.#workouts.splice(0);
+
+        this._removeAllWorkoutsAndMarkers();
+
+    }
+
+    _cancelWorkoutsDeletion() {
+        this._closeConfirmationModal();
     }
 
     reset() {
